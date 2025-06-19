@@ -12,7 +12,7 @@
 
     <h2>TLDR</h2>
     <div>
-      This post outlines a new model for a cross-border stablecoin exchange where all trades are routed through <em>Mondeum</em>, a global basket token backed by fiat currency stablecoins from around the world. It introduces a three-layered liquidity system to separate token risk, treasury risk and global routing. The goal: lower slippage, better capital efficiency and a more regulator-friendly foundation for the next phase of stablecoin adoption. We walk through the rationale, architecture and rollout roadmap.
+      This post outlines a new model for a cross-border stablecoin exchange where all trades are routed through <em>Mondeum</em>, a global basket token backed by fiat currency stablecoins from around the world. It introduces a three-layered system to separate token risk and treasury risk and manage liquidity. The goal is to enhance swaps between stablecoins backed by different fiat currencies and lay the foundation for the next phase of stablecoin adoption. We walk through the rationale, architecture and rollout roadmap.
     </div>
 
     <h2>1. Why This Matters</h2>
@@ -21,7 +21,7 @@
 
       As programmable dollar exports grow, other regulators, especially in emerging markets, will step in to prevent currency outflows. Nigeria’s 2024 crackdown and move to delist the naira from exchanges is a clear example of how rational regulators, serving their own interests, will respond. They'll act where they have the most leverage: throttling the on-ramp. <br><br>
 
-      Meanwhile, Washington is sprinting to lock in first-mover advantage. The bipartisan GENIUS Act passed the Senate yesterday (June 18, 2025) and the CLARITY Act has cleared a House committee. Both bills aim to ring-fence stablecoin reserves and pull the market onto a federally supervised playing field. <br><br>
+      Meanwhile, Washington is sprinting to lock in first-mover and other advantages. The bipartisan GENIUS Act passed the Senate yesterday (June 18, 2025), the CLARITY Act has cleared a House committee. Both bills aim to ring-fence stablecoin reserves and pull the market onto a federally supervised playing field. <br><br>
 
       The US, especially given its growing national debt, clearly wants foreign inflows and stablecoins make that easier. But foreign regulators understandably want to slow capital flight. That gap is where a neutral, multi-currency stablecoin exchange could bloom.
     </div>
@@ -53,29 +53,29 @@
       We organize stablecoin liquidity into three carefully defined layers to isolate and manage different types of risk at both the stablecoin token-level and the currency-level.
     </div>
 
-    <h3>L3 – Fiat-Backed Stablecoins</h3>
+    <h3>L3: Fiat-Backed Stablecoins</h3>
     <div>
       The foundational layer consists of individual fiat-backed stablecoins, each representing their respective fiat currencies at a 1:1 ratio. This layer will include assets like USDC, EURI, xSGD, GYEN, TRYB and others. Each asset carries unique counterparty and reserve risks that are contained at this level.
     </div>
 
-    <h3>L2 – Country Baskets</h3>
+    <h3>L2: Country Baskets</h3>
     <div>
       Each fiat currency has its own country basket, grouping together all its associated tokens. For example: <br><br>
 
       • The USD basket might include USDC, USDT and PYUSD  <br>
       • The EUR basket could have EURC and EURI  <br>
-      • The SGD basket would include xSGD <br>
+      • The SGD basket would include xSGD <br><br>
 
-      These baskets allow pricing against their fiat reference more transparently, surface relative demand and help quantify sovereign treasury risk. They also simplify compliance optics for local regulators looking to monitor aggregate exposure to their currency.
+      These baskets allow pricing against their fiat reference more transparently, surface relative demand and help quantify sovereign treasury risk. They also simplify compliance for local regulators looking to monitor aggregate exposure to their currency.
     </div>
 
-    <h3>L1 – Mondeum Token</h3>
+    <h3>L1: Mondeum Token</h3>
     <div>
-      Mondeum represents a share of the full pool and abstracts away individual token and currency variations. It is a single composable index token backed by the L2 baskets, concentrating liquidity and fee yield. This architecture mirrors the mechanics of Perena’s USD*, especially around how fees are reinvested and how swaps are routed through a central token.
+      The Mondeum token represents a share of the full pool and abstracts away individual token and currency variations. It is a single composable index token backed by the L3 tokens, concentrating liquidity and fee yield. This architecture mirrors the mechanics of Perena’s USD*, especially around how fees are reinvested and how swaps are routed through a central token. <br><br>
 
-      In practice, all swaps pass through Mondeum. For a local swap, like EURC → EURI, the path is EURC → Mondeum → EURI. For a cross-border transaction like IDRT → USDT, the route becomes IDRT → Mondeum → USDT. This ensures that no matter the pair, liquidity and pricing depth remain efficient.
+      In practice, all swaps pass through Mondeum. For a local swap, like EURC → EURI, the path is EURC → Mondeum → EURI. For a cross-border transaction like IDRT → USDT, the route becomes IDRT → Mondeum → USDT. This ensures that no matter the pair, liquidity and pricing depth remain efficient. <br><br>
 
-      Slippage can be kept consistently low as long as token depths and pricing logic are well-tuned. That said, a challenge is the overwhelming weight of USD stablecoins in today’s market. This imbalance could lead to slippage or inefficient pricing when bridging to thinner currencies even when the weighting system accounts for this asymmetry.
+      Slippage can be kept consistently low as long as token depths and pricing logic are well-tuned. That said, a challenge is the overwhelming prominence of USD stablecoins in today’s stablecoin flows. This imbalance could lead to slippage or inefficient pricing when bridging to thinner currencies even when the weighting system accounts for this asymmetry. <br><br>
 
       Careful calibration of both intra-basket weights (e.g., USDC vs PYUSD within USD) and cross-basket weights (e.g., USD vs BRL vs SGD) is required. This likely needs ongoing rebalancing logic informed by corridor-specific flow data and macro volatility.
     </div>
