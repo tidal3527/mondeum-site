@@ -5,15 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mondeum Concept Note</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    pre {
+      white-space: pre-wrap;
+      font-family: inherit;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
   <main>
     <h1>Mondeum: A Model for a Cross-Border Multi-Fiat Stablecoin Exchange</h1>
 
-    <p><strong>TLDR:</strong> This post outlines a new model for cross-border stablecoin exchange—one that routes all trades through a global basket token called <em>Mondeum</em>, backed by fiat currency baskets from around the world. It introduces a three-layered liquidity system to separate token risk, treasury risk and global routing. The result: lower slippage, better capital efficiency and a more regulator-friendly foundation for the next phase of stablecoin adoption. We walk through the rationale, architecture and rollout roadmap.</p>
+    <pre>
+TLDR
+This post outlines a new model for cross-border stablecoin exchange—one that routes all trades through a global basket token called Mondeum, backed by fiat currency baskets from around the world. It introduces a three-layered liquidity system to separate token risk, treasury risk and global routing. The goal is to achieve lower slippage, better capital efficiency and a more regulator-friendly foundation for the next phase of global stablecoin adoption. We walk through the rationale, architecture and rollout roadmap.
 
-    <h2>1. Why This Matters</h2>
-    <p>Dollar-backed stablecoins already account for over 90% of the $250 billion (expected to reach the trillions in a few years) stablecoin market, with USDT and USDC alone controlling about 86% of circulation... <em>(continue pasting your full concept note content here)</em></p>
+1. Why This Matters
+Dollar-backed stablecoins already account for over 90% of the $250 billion (expected to reach the trillions in a few years) stablecoin market, with USDT and USDC alone controlling about 86% of circulation. Stablecoins could extend dollar dominance in the digital world far more than in the real world.
+As programmable dollar exports grow, other regulators, especially in emerging markets, will step in to prevent currency outflows. Nigeria’s 2024 crackdown and move to delist the naira from exchanges is a clear example of how rational regulators, serving their own interests, will respond. They'll act where they have the most leverage: throttling the on-ramp.
+Meanwhile, Washington is sprinting to lock in first-mover advantage. The bipartisan GENIUS Act passed the Senate yesterday (June 18, 2025), the CLARITY Act has cleared a House committee. Both bills aim to ring-fence stablecoin reserves and pull the market onto a federally supervised playing field.
+The US, especially given its growing national debt, clearly wants foreign inflows and stablecoins make that easier. But many foreign governments understandably want to slow capital flight. That gap is where a neutral, multi-currency stablecoin exchange could bloom.
+
+2. Core Hypothesis
+1. If cross-border demand for USD-backed coins keeps compounding, then emerging-market policymakers will escalate capital controls.
+2. Given controls will focus on on-ramps, indirect access to US treasuries via stablecoins will be throttled, spreads will widen between fiat and on-chain FX, keeping stablecoin routes from getting too cheap, thus slowing their growth.
+3. Therefore, a venue that gives each jurisdiction tighter visibility over a trend that is already happening (and moving fast) could both unlock local support and accelerate stablecoin adoption further. 
+
+3. The Idea in Brief
+This concept note proposes a new stablecoin exchange infrastructure—centered around a neutral, global basket token called Mondeum—to make fiat-backed stablecoin transfers more efficient, transparent and resilient. At its core is a three-layered liquidity architecture:
+Every swap, whether within a single currency (like EURC to EURI) or across countries (like iDRT to USDT), passes through Mondeum. This concentrates liquidity into a common routing layer, reduces the number of required trading pairs and simplifies on-chain FX at scale.
+Over time, Mondeum will make cross-border swaps highly efficient with minimal price slippage, positioning it as the preferred venue for currency conversion, especially compared to today’s fragmented, costly and often poorly regulated routes between local currencies and USD backed stablecoins. As efficiency improves, arbitrage could help the system reflect real-world fiat conversion rates more closely.
+By making it easier to switch between local stablecoins without relying entirely on USD pairs, the system improves capital efficiency for users, increases visibility and control for regulators, and creates healthier competition across stablecoin issuers.
+The next sections detail how this works in practice, what assets would be included, and what a launch roadmap could look like.
+
+4. Proposed Solution: Layered Liquidity
+We organize stablecoin liquidity into three carefully defined layers to isolate and manage different types of risk—token-level, currency-level and global.
+
+L3 – Fiat-Backed Stablecoins
+The foundational layer consists of individual fiat-backed stablecoins, each representing their respective fiat currencies at a 1:1 ratio. This layer will include assets like USDC, EURI, xSGD, GYEN, TRYB and others. Each asset carries unique counterparty and reserve risks that are contained at this level.
+
+L2 – Country Baskets
+Each fiat currency has its own country basket, grouping together all its associated tokens. For example:
+• The USD basket might include USDC, USDT and PYUSD
+• The EUR basket could have EURC and EURI
+• The SGD basket would include xSGD
+These baskets allow pricing against their fiat reference more transparently, surface relative demand and help quantify sovereign treasury risk. They also simplify compliance optics for local regulators looking to monitor aggregate exposure to their currency.
+
+L1 – Mondeum Token
+Mondeum represents a share of the full pool and abstracts away individual token and currency variations. It is a single composable index token backed by the L2 baskets, concentrating liquidity and fee yield. This architecture mirrors the mechanics of Perena’s USD*, especially around how fees are reinvested and how swaps are routed through a central token.
+In practice, all swaps pass through Mondeum. For a local swap, like EURC → EURI, the path is EURC → Mondeum → EURI. For a cross-border transaction like IDRT → USDT, the route becomes IDRT → Mondeum → USDT. This ensures that no matter the pair, liquidity and pricing depth remain efficient.
+Slippage can be kept consistently low as long as token depths and pricing logic are well-tuned. That said, a challenge is the overwhelming weight of USD stablecoins in today’s market. This imbalance could lead to slippage or inefficient pricing when bridging to thinner currencies even when the weighting system accounts for this asymmetry.
+Careful calibration of both intra-basket weights (e.g., USDC vs PYUSD within USD) and cross-basket weights (e.g., USD vs BRL vs SGD) is required. This likely needs ongoing rebalancing logic informed by corridor-specific flow data and macro volatility.
+
+5. Pool Launch
+• Select the ideal blockchain, prioritizing sub-second settlement and low transaction costs. Solana, an EVM L2 like Base or a stablecoin specific chain like Plasma are potential options.
+• Seed the first version of the pool using grant funds to acquire a pre-defined distribution of top fiat-backed stablecoins.
+
+Initial focus currencies, based on liquidity and underlying fiat volume, could be:
+• USD (USDC, USDT, PYUSD)
+• EUR (EURC, EURI)
+• BRL (BRZ)
+• JPY (GYEN)
+• IDR (IDRT)
+• SGD (xSGD)
+• TRY (TRYB)
+
+Secondary additions might include:
+• PHP (PHPC)
+• NZD (NZDS)
+• COP (COPM)
+
+To start, launch the pool with three major currencies: USD, EUR and BRL. These offer the most robust liquidity and user base. Acquire their corresponding stablecoins, launch the L3 and L2 pools, then mint Mondeum as the L1 asset.
+
+Conclusion
+The design outlined here is an early blueprint. It requires substantial corridor-level research to optimize token weights, model FX spreads under real-world frictions and test failover behavior during volatility spikes. It also calls for close collaboration with stablecoin issuers and local compliance teams on the chosen blockchain.
+Done right, this can make stablecoin swaps more capital-efficient, help regulators keep capital flight in check, and offer an opt-in system that enhances transparency and control. It also opens up an alternative to today’s USD-dominant flows, allowing for a healthier multipolar stablecoin world.
+Even from a US national interest perspective, it’s worth questioning whether the current 90 %+ dollar dominance is net-positive. Some sociopolitical strain inside the US arguably stems from overreliance on global USD demand. A multi-currency pool like Mondeum might ultimately serve everyone’s interest better. It could deliver global liquidity without undermining domestic policy goals and drive stablecoin usage toward its next logical evolution.
+
+We're actively exploring grant opportunities to accelerate implementation of this model. If you're a foundation, protocol or ecosystem team, or simply interested in supporting us, reach out at rd@stableresearch.xyz.
+    </pre>
 
     <p><a href="index.html">← Back to landing page</a></p>
   </main>
